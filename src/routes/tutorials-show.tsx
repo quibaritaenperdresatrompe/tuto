@@ -1,6 +1,7 @@
 import { Link, useLoaderData, useFetcher } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
+import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -28,6 +29,7 @@ export default function TutorialShow() {
       setActiveStep(tutorial.instructions.length);
     }
   }, [tutorial.id, tutorial.instructions.length, tutorial.done]);
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -59,6 +61,23 @@ export default function TutorialShow() {
   const isFinish = activeStep === tutorial.instructions.length;
   const hasInstruction =
     tutorial.instructions && tutorial.instructions.length > 0;
+  const [anchorLogin, setAnchorLogin] = useState<HTMLButtonElement | null>(
+    null
+  );
+  const handleOpenLoginPopover = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorLogin(event.currentTarget);
+    handleFinish();
+    setTimeout(() => {
+      setAnchorLogin(null);
+    }, 3000);
+  };
+  const handleCloseLoginPopover = () => {
+    setAnchorLogin(null);
+  };
+  const openLoginPopover = Boolean(anchorLogin);
+  const idLoginPopover = openLoginPopover ? "login-popover" : undefined;
   return (
     <Box maxWidth="md">
       <Toolbar component={Stack} direction="row" spacing={2}>
@@ -91,17 +110,41 @@ export default function TutorialShow() {
         justifyContent="center"
       >
         {tutorial.instructions.length > 0 && (
-          <fetcher.Form>
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={handleFinish}
-              startIcon={isFinish ? <Done /> : null}
-              disabled={isFinish}
+          <>
+            <fetcher.Form>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={user ? handleFinish : handleOpenLoginPopover}
+                startIcon={isFinish ? <Done /> : null}
+                disabled={isFinish}
+                aria-describedby={idLoginPopover}
+              >
+                {isFinish ? "Terminé" : "Marquer comme terminé"}
+              </Button>
+            </fetcher.Form>
+            <Popover
+              id={idLoginPopover}
+              open={openLoginPopover}
+              anchorEl={anchorLogin}
+              onClose={handleCloseLoginPopover}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              sx={{ m: 2 }}
             >
-              {isFinish ? "Terminé" : "Marquer comme terminé"}
-            </Button>
-          </fetcher.Form>
+              <Stack spacing={2} alignItems="center" maxWidth={320} p={2}>
+                <Typography>
+                  Pour garder en mémoire les tutoriels terminés il est
+                  nécessaire de se connecter.
+                </Typography>
+                <Button variant="contained" component={Link} to="/login">
+                  Se connecter
+                </Button>
+              </Stack>
+            </Popover>
+          </>
         )}
         <Button
           variant={open ? "outlined" : "contained"}
