@@ -16,7 +16,7 @@ export default function TutorialsList() {
       <Typography mb={2}>{tutorials.length} tutoriel(s)</Typography>
       <Grid container spacing={4} flexWrap="wrap">
         {tutorials.map(({ id, title, publishedBy, done }) => (
-          <Grid item xs={3} key={id}>
+          <Grid item xs={12} md={3} key={id}>
             <TutorialCard
               id={id}
               title={title}

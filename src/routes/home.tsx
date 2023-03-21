@@ -17,7 +17,7 @@ export default function Home() {
       <Typography mb={2}>Les derniers tutoriels</Typography>
       <Grid container spacing={4} mb={8}>
         {tutorials.map(({ id, title, publishedBy, done }) => (
-          <Grid item xs={3} key={id}>
+          <Grid item xs={12} md={3} key={id}>
             <TutorialCard
               id={id}
               title={title}
