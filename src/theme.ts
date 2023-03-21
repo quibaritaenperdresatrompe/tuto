@@ -31,6 +31,7 @@ const theme = responsiveFontSizes(
         default: "#172713",
         paper: "#172713",
       },
+      error: { main: "#e796ba" },
     },
     components: {
       MuiLink: {
