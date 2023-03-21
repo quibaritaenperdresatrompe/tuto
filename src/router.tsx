@@ -13,6 +13,7 @@ import getTutorial from "./queries/getTutorial";
 import getTutorials from "./queries/getTutorials";
 import finishTutorial from "./mutations/finishTutorial";
 import resetTutorial from "./mutations/resetTutorial";
+import SignIn from "./routes/signin";
 
 const app = initialize();
 export const firestore = getFirestore(app);
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       await signOut(auth);
       return redirect("/");
     },
+  },
+  {
+    path: "/signin",
+    element: <SignIn />,
   },
 ]);
 

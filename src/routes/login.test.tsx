@@ -29,7 +29,7 @@ describe("Login", () => {
   it("renders log in button", () => {
     render(<Login />, { wrapper: BrowserRouter });
     expect(
-      screen.getByRole("button", { name: "Me connecter" })
+      screen.getByRole("button", { name: "Se connecter" })
     ).toBeInTheDocument();
   });
 
@@ -41,6 +41,6 @@ describe("Login", () => {
     fireEvent.change(screen.getByTestId("password-input"), {
       target: { value: "abcdefghijk" },
     });
-    expect(screen.getByRole("button", { name: "Me connecter" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Se connecter" })).toBeEnabled();
   });
 });

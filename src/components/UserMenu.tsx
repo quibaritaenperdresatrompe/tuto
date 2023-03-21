@@ -62,7 +62,7 @@ function UserMenu() {
         data-testid="menu"
       >
         <MenuItem onClick={handleSignOut}>
-          <Typography textAlign="center">Me déconnecter</Typography>
+          <Typography textAlign="center">Se déconnecter</Typography>
         </MenuItem>
       </Menu>
     </Box>

@@ -1,4 +1,8 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useForm, Controller } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -11,7 +15,7 @@ import PasswordInput from "../components/PasswordInput";
 
 type Credentials = { email: string; password: string };
 
-export default function Login() {
+export default function SignIn() {
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -30,12 +34,12 @@ export default function Login() {
   const onValid = async (data: Credentials) => {
     try {
       const auth = getAuth();
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
       navigate(-1);
     } catch (error) {
       setError("root", {
         type: "custom",
-        message: "Oops ! Les identifiants incorrects.",
+        message: "Oops !",
       });
     }
   };
@@ -59,7 +63,7 @@ export default function Login() {
         Bienvenue !
       </Typography>
       <Typography textAlign="center" mb={2}>
-        Pour accéder à davantage de fonctionnalités tu dois te connecter.
+        Pour accéder à davantage de fonctionnalités tu dois créer un compte.
       </Typography>
       <Button
         variant="outlined"
@@ -98,16 +102,7 @@ export default function Login() {
           <Typography color="error">{errors.root?.message}</Typography>
         )}
         <Button type="submit" variant="contained" disabled={disabled}>
-          Se connecter
-        </Button>
-        <Typography textAlign="center">ou</Typography>
-        <Button
-          variant="contained"
-          component={Link}
-          to="/signin"
-          sx={{ mb: 2 }}
-        >
-          Créer un compte
+          M'enregistrer
         </Button>
       </Stack>
     </Container>
