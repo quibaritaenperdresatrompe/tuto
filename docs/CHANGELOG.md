@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.0...v1.1.1) (2023-03-21)
+
+### Bug Fixes
+
+- 🐛 tutorial card full width on small screens ([b7549c1](https://github.com/quibaritaenperdresatrompe/tuto/commit/b7549c1482c104e73c4db64aa9912574346b2c96))
+
 ## [1.1.0](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.0.0...v1.1.0) (2023-03-21)
 
 ### Features
