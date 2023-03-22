@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.1...v1.1.2) (2023-03-22)
+
+### Bug Fixes
+
+- 🐛 error page on login, logout, and signin ([c1e2ce3](https://github.com/quibaritaenperdresatrompe/tuto/commit/c1e2ce38b41e014ac2301034df389312cb41a257))
+
 ## [1.1.1](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.0...v1.1.1) (2023-03-21)
 
 ### Bug Fixes
