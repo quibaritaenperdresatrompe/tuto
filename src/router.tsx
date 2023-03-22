@@ -84,6 +84,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/logout",
@@ -91,10 +92,12 @@ const router = createBrowserRouter([
       await signOut(auth);
       return redirect("/");
     },
+    errorElement: <ErrorPage />,
   },
   {
     path: "/signin",
     element: <SignIn />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
