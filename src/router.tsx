@@ -30,7 +30,6 @@ const router = createBrowserRouter([
           const tutorials = await getTutorials(4);
           return json({ tutorials });
         },
-        errorElement: <ErrorPage />,
       },
       {
         path: "/tutorials",
@@ -39,7 +38,6 @@ const router = createBrowserRouter([
           const tutorials = await getTutorials();
           return json({ tutorials });
         },
-        errorElement: <ErrorPage />,
       },
       {
         path: "/tutorials/:id",
@@ -57,7 +55,6 @@ const router = createBrowserRouter([
           }
           return json({ tutorial });
         },
-        errorElement: <ErrorPage />,
       },
       {
         path: "/tutorials/:id/reset",
@@ -80,6 +77,7 @@ const router = createBrowserRouter([
         },
       },
     ],
+    errorElement: <ErrorPage />,
   },
   {
     path: "/login",

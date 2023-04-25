@@ -16,7 +16,6 @@ export default function Root() {
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
           py: 8,
         }}

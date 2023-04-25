@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 export default function ErrorPage() {
   return (
     <Box
-      maxWidth="md"
       minHeight="100vh"
       display="flex"
       flexDirection="column"
