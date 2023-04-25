@@ -56,7 +56,7 @@ export default function SignIn() {
       }}
     >
       <Typography variant="h1" textAlign="center" mb={8}>
-        Bienvenue !
+        Envie de nous rejoindre ?
       </Typography>
       <Typography textAlign="center" mb={2}>
         Pour accéder à davantage de fonctionnalités tu dois créer un compte.
@@ -98,7 +98,7 @@ export default function SignIn() {
           <Typography color="error">{errors.root?.message}</Typography>
         )}
         <Button type="submit" variant="contained" disabled={disabled}>
-          M'enregistrer
+          Créer mon compte
         </Button>
       </Stack>
     </Container>
