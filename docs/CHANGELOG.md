@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.4...v1.1.5) (2023-04-25)
+
+### Bug Fixes
+
+- 🐛 after login redirect to previous route ([9d31b10](https://github.com/quibaritaenperdresatrompe/tuto/commit/9d31b10477311e22439c84e6501983300c2535d6))
+- 🐛 redirect to previous page on logout ([848faf2](https://github.com/quibaritaenperdresatrompe/tuto/commit/848faf29d1fef78cd148c84180d778ddfa5e26f2))
+
 ## [1.1.4](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.3...v1.1.4) (2023-04-25)
 
 ### Bug Fixes
