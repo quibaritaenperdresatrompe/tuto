@@ -24,7 +24,10 @@ function UserMenu() {
   };
 
   const handleSignOut = () => {
-    fetcher.submit(null, { method: "post", action: "/logout" });
+    fetcher.submit(
+      { from: location.pathname || "/" },
+      { method: "post", action: "/logout" }
+    );
   };
 
   if (!user) {

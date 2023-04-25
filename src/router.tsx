@@ -88,9 +88,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/logout",
-    action: async () => {
+    action: async ({ request }) => {
       await signOut(auth);
-      return redirect("/");
+      const formData = await request.formData();
+      const from = formData.get("from") as string;
+      return redirect(from);
     },
     errorElement: <ErrorPage />,
   },
