@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.2...v1.1.3) (2023-04-25)
+
+### Bug Fixes
+
+- 🐛 title font sizes are smaller ([2874fa0](https://github.com/quibaritaenperdresatrompe/tuto/commit/2874fa019a51a6b993991d25128c301ee9b15843))
+
 ## [1.1.2](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.1...v1.1.2) (2023-03-22)
 
 ### Bug Fixes
