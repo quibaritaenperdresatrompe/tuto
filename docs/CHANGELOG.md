@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.5...v1.1.6) (2023-04-25)
+
+### Bug Fixes
+
+- 🐛 error page is at the top-level ([4d2d946](https://github.com/quibaritaenperdresatrompe/tuto/commit/4d2d9467cd6c6f8064018440f7cf709d1baa4a54))
+- 🐛 redirect to previous after login from tutorial page ([8910da7](https://github.com/quibaritaenperdresatrompe/tuto/commit/8910da7c859743a3fdc349950ab7b721972b9743))
+
 ## [1.1.5](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.4...v1.1.5) (2023-04-25)
 
 ### Bug Fixes
