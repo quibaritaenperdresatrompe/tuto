@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useFetcher } from "react-router-dom";
+import { Link, useLoaderData, useFetcher, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Popover from "@mui/material/Popover";
@@ -19,6 +19,7 @@ import Code from "../components/Code";
 import { useUserContext } from "../providers/UserProvider";
 
 export default function TutorialShow() {
+  const location = useLocation();
   const user = useUserContext();
   const { tutorial } = useLoaderData() as { tutorial: Tutorial };
   const fetcher = useFetcher();
@@ -45,13 +46,15 @@ export default function TutorialShow() {
       });
     }
   };
-  const handleFinish = () => {
+  const handleFinish = (event: React.MouseEvent<HTMLButtonElement>) => {
     setActiveStep(tutorial.instructions.length);
     if (user) {
       fetcher.submit(null, {
         method: "post",
         action: `/tutorials/${tutorial.id}/finish`,
       });
+    } else {
+      handleOpenLoginPopover(event);
     }
   };
   const handleShare = () => {
@@ -68,7 +71,6 @@ export default function TutorialShow() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     setAnchorLogin(event.currentTarget);
-    handleFinish();
     setTimeout(() => {
       setAnchorLogin(null);
     }, 3000);
@@ -79,141 +81,150 @@ export default function TutorialShow() {
   const openLoginPopover = Boolean(anchorLogin);
   const idLoginPopover = openLoginPopover ? "login-popover" : undefined;
   return (
-    <Box maxWidth="md">
-      <Toolbar component={Stack} direction="row" spacing={2}>
-        <Button
-          variant="outlined"
-          size="small"
-          component={Link}
-          to="/tutorials"
+    <>
+      <Box maxWidth="md">
+        <Toolbar component={Stack} direction="row" spacing={2}>
+          <Button
+            variant="outlined"
+            size="small"
+            component={Link}
+            to="/tutorials"
+          >
+            Tous les tutoriels
+          </Button>
+        </Toolbar>
+        <Typography variant="h1" textAlign="center" mb={2}>
+          {tutorial.title}
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          color="textSecondary"
+          fontStyle="italic"
+          textAlign="center"
+          mb={2}
         >
-          Tous les tutoriels
-        </Button>
-      </Toolbar>
-      <Typography variant="h1" textAlign="center" mb={2}>
-        {tutorial.title}
-      </Typography>
-      <Typography
-        variant="subtitle2"
-        color="textSecondary"
-        fontStyle="italic"
-        textAlign="center"
-        mb={2}
-      >
-        Publié le {tutorial.publishedAt} par {tutorial.publishedBy}
-      </Typography>
-      <Toolbar
-        sx={{ mb: 8 }}
-        component={Stack}
-        direction="row"
-        spacing={2}
-        justifyContent="center"
-      >
-        {tutorial.instructions.length > 0 && (
-          <>
-            <fetcher.Form>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={user ? handleFinish : handleOpenLoginPopover}
-                startIcon={isFinish ? <Done /> : null}
-                disabled={isFinish}
-                aria-describedby={idLoginPopover}
-              >
-                {isFinish ? "Terminé" : "Marquer comme terminé"}
-              </Button>
-            </fetcher.Form>
-            <Popover
-              id={idLoginPopover}
-              open={openLoginPopover}
-              anchorEl={anchorLogin}
-              onClose={handleCloseLoginPopover}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              sx={{ m: 2 }}
-            >
-              <Stack spacing={2} alignItems="center" maxWidth={320} p={2}>
-                <Typography>
-                  Pour garder en mémoire les tutoriels terminés il est
-                  nécessaire de se connecter.
-                </Typography>
-                <Button variant="contained" component={Link} to="/login">
-                  Se connecter
-                </Button>
-              </Stack>
-            </Popover>
-          </>
-        )}
-        <Button
-          variant={open ? "outlined" : "contained"}
-          size="small"
-          onClick={handleShare}
-          disabled={open}
+          Publié le {tutorial.publishedAt} par {tutorial.publishedBy}
+        </Typography>
+        <Toolbar
+          sx={{ mb: 8 }}
+          component={Stack}
+          direction="row"
+          spacing={2}
+          justifyContent="center"
         >
-          Partager
-        </Button>
-        <Snackbar
-          open={open}
-          onClose={() => setOpen(false)}
-          autoHideDuration={2000}
-          message="Url de partage copiée dans le presse-papier"
-        />
-      </Toolbar>
-      {hasInstruction ? (
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {tutorial.instructions.map((step, index) => {
-            const isLastStep = index === tutorial.instructions.length - 1;
-            return (
-              <Step key={step.label}>
-                <StepLabel
-                  optional={
-                    isLastStep ? (
-                      <Typography variant="caption">Dernière étape</Typography>
-                    ) : null
-                  }
+          {tutorial.instructions.length > 0 && (
+            <>
+              <fetcher.Form>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={handleFinish}
+                  startIcon={isFinish ? <Done /> : null}
+                  disabled={isFinish}
+                  aria-describedby={idLoginPopover}
                 >
-                  {step.label}
-                </StepLabel>
-                <StepContent>
-                  <Stack spacing={2} mb={2}>
-                    <Typography>{step.description}</Typography>
-                    <Code content={step.command} />
-                    <Stack direction="row" spacing={1}>
-                      <Button variant="contained" onClick={handleNext}>
-                        {isLastStep ? "Terminer" : "Continuer"}
-                      </Button>
-                      <Button disabled={index === 0} onClick={handleBack}>
-                        Retour
-                      </Button>
+                  {isFinish ? "Terminé" : "Marquer comme terminé"}
+                </Button>
+              </fetcher.Form>
+            </>
+          )}
+          <Button
+            variant={open ? "outlined" : "contained"}
+            size="small"
+            onClick={handleShare}
+            disabled={open}
+          >
+            Partager
+          </Button>
+          <Snackbar
+            open={open}
+            onClose={() => setOpen(false)}
+            autoHideDuration={2000}
+            message="Url de partage copiée dans le presse-papier"
+          />
+        </Toolbar>
+        {hasInstruction ? (
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {tutorial.instructions.map((step, index) => {
+              const isLastStep = index === tutorial.instructions.length - 1;
+              return (
+                <Step key={step.label}>
+                  <StepLabel
+                    optional={
+                      isLastStep ? (
+                        <Typography variant="caption">
+                          Dernière étape
+                        </Typography>
+                      ) : null
+                    }
+                  >
+                    {step.label}
+                  </StepLabel>
+                  <StepContent>
+                    <Stack spacing={2} mb={2}>
+                      <Typography>{step.description}</Typography>
+                      <Code content={step.command} />
+                      <Stack direction="row" spacing={1}>
+                        <Button variant="contained" onClick={handleNext}>
+                          {isLastStep ? "Terminer" : "Continuer"}
+                        </Button>
+                        <Button disabled={index === 0} onClick={handleBack}>
+                          Retour
+                        </Button>
+                      </Stack>
                     </Stack>
-                  </Stack>
-                </StepContent>
-              </Step>
-            );
-          })}
-        </Stepper>
-      ) : (
-        <Typography>Aucune instruction pour le moment.</Typography>
-      )}
-      {hasInstruction && activeStep === tutorial.instructions.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Stack spacing={2}>
-            <Typography>Tu as terminé le tutoriel, bravo !</Typography>
-            <Stack direction="row" spacing={1}>
-              <Button
-                variant={open ? "outlined" : "contained"}
-                onClick={handleShare}
-                disabled={open}
-              >
-                Partager
-              </Button>
-              <Button onClick={handleReset}>Réinitialiser</Button>
+                  </StepContent>
+                </Step>
+              );
+            })}
+          </Stepper>
+        ) : (
+          <Typography>Aucune instruction pour le moment.</Typography>
+        )}
+        {hasInstruction && activeStep === tutorial.instructions.length && (
+          <Paper square elevation={0} sx={{ p: 3 }}>
+            <Stack spacing={2}>
+              <Typography>Tu as terminé le tutoriel, bravo !</Typography>
+              <Stack direction="row" spacing={1}>
+                <Button
+                  variant={open ? "outlined" : "contained"}
+                  onClick={handleShare}
+                  disabled={open}
+                >
+                  Partager
+                </Button>
+                <Button onClick={handleReset}>Réinitialiser</Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </Paper>
-      )}
-    </Box>
+          </Paper>
+        )}
+      </Box>
+      <Popover
+        id={idLoginPopover}
+        open={openLoginPopover}
+        anchorEl={anchorLogin}
+        onClose={handleCloseLoginPopover}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        sx={{ m: 2 }}
+      >
+        <Stack spacing={2} alignItems="center" maxWidth={320} p={2}>
+          <Typography>
+            Pour garder en mémoire les tutoriels terminés il est nécessaire de
+            se connecter.
+          </Typography>
+          <Button
+            variant="contained"
+            component={Link}
+            to="/login"
+            state={{ from: location }}
+          >
+            Se connecter
+          </Button>
+        </Stack>
+      </Popover>
+    </>
   );
 }
