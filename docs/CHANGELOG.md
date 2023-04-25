@@ -1,3 +1,9 @@
+## [1.1.4](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.3...v1.1.4) (2023-04-25)
+
+### Bug Fixes
+
+- 🐛 signin page is more explicite ([330ecd8](https://github.com/quibaritaenperdresatrompe/tuto/commit/330ecd82caef56e735a1a21bd9ee70b0e01935bb))
+
 ## [1.1.3](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.2...v1.1.3) (2023-04-25)
 
 ### Bug Fixes
