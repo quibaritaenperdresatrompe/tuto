@@ -1,4 +1,4 @@
-import { Link, useFetcher } from "react-router-dom";
+import { Link, useFetcher, useLocation } from "react-router-dom";
 import { MouseEvent, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,6 +10,7 @@ import Person2Rounded from "@mui/icons-material/Person2Rounded";
 import { useUserContext } from "../providers/UserProvider";
 
 function UserMenu() {
+  const location = useLocation();
   const fetcher = useFetcher();
   const user = useUserContext();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -28,7 +29,13 @@ function UserMenu() {
 
   if (!user) {
     return (
-      <Button variant="outlined" size="small" component={Link} to="/login">
+      <Button
+        variant="outlined"
+        size="small"
+        component={Link}
+        to="/login"
+        state={{ from: location }}
+      >
         Se connecter
       </Button>
     );

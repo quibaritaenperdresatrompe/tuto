@@ -1,6 +1,6 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
@@ -13,6 +13,8 @@ type Credentials = { email: string; password: string };
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     handleSubmit,
     control,
@@ -31,7 +33,7 @@ export default function Login() {
     try {
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate(-1);
+      navigate(from, { replace: true });
     } catch (error) {
       setError("root", {
         type: "custom",
