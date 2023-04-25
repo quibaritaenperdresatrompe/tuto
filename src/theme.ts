@@ -7,12 +7,15 @@ const theme = responsiveFontSizes(
       fontFamily: "'Work Sans', sans-serif",
       fontSize: 14,
       h1: {
+        fontSize: "4em",
         fontWeight: 700,
       },
       h2: {
+        fontSize: "3em",
         fontWeight: 700,
       },
       h3: {
+        fontSize: "2em",
         fontWeight: 700,
       },
       button: {
