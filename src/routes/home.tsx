@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import TutorialCard from "../components/TutorialCard";
 import { Tutorial } from "../types/tutorial";
+import CreateTutorialInvitation from "../components/CreateTutorialInvitation";
+import TutorialCard from "../components/TutorialCard";
 
 export default function Home() {
   const { tutorials } = useLoaderData() as { tutorials: Tutorial[] };
@@ -28,9 +29,15 @@ export default function Home() {
         ))}
       </Grid>
       <Typography mb={2}>Ce n'est pas assez ?</Typography>
-      <Button variant="contained" component={Link} to="/tutorials">
+      <Button
+        variant="contained"
+        component={Link}
+        to="/tutorials"
+        sx={{ mb: 8 }}
+      >
         Voir tous les tutoriels
       </Button>
+      <CreateTutorialInvitation />
     </Box>
   );
 }
