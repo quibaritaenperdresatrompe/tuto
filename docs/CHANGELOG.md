@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.6...v1.2.0) (2023-05-04)
+
+### Features
+
+- 🎸 create tutorial page is accessible at /tutorials/new ([193a7bb](https://github.com/quibaritaenperdresatrompe/tuto/commit/193a7bb7930b0c56cd2a799ffb0f2c96efabb0d6))
+- 🎸 create tutorial page is accessible on all pages ([d441516](https://github.com/quibaritaenperdresatrompe/tuto/commit/d44151670762f4cf299533691babc65759baba1a))
+
 ## [1.1.6](https://github.com/quibaritaenperdresatrompe/tuto/compare/v1.1.5...v1.1.6) (2023-04-25)
 
 ### Bug Fixes
