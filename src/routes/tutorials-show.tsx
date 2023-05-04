@@ -15,8 +15,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Done from "@mui/icons-material/Done";
 
 import { Tutorial } from "../types/tutorial";
-import Code from "../components/Code";
 import { useUserContext } from "../providers/UserProvider";
+import Code from "../components/Code";
+import CreateTutorialInvitation from "../components/CreateTutorialInvitation";
 
 export default function TutorialShow() {
   const location = useLocation();
@@ -90,7 +91,15 @@ export default function TutorialShow() {
             component={Link}
             to="/tutorials"
           >
-            Tous les tutoriels
+            Voir tous les tutoriels
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            component={Link}
+            to="/tutorials/new"
+          >
+            Rédiger un tuto
           </Button>
         </Toolbar>
         <Typography variant="h1" textAlign="center" mb={2}>
@@ -113,20 +122,18 @@ export default function TutorialShow() {
           justifyContent="center"
         >
           {tutorial.instructions.length > 0 && (
-            <>
-              <fetcher.Form>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={handleFinish}
-                  startIcon={isFinish ? <Done /> : null}
-                  disabled={isFinish}
-                  aria-describedby={idLoginPopover}
-                >
-                  {isFinish ? "Terminé" : "Marquer comme terminé"}
-                </Button>
-              </fetcher.Form>
-            </>
+            <fetcher.Form>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleFinish}
+                startIcon={isFinish ? <Done /> : null}
+                disabled={isFinish}
+                aria-describedby={idLoginPopover}
+              >
+                {isFinish ? "Terminé" : "Marquer comme terminé"}
+              </Button>
+            </fetcher.Form>
           )}
           <Button
             variant={open ? "outlined" : "contained"}
@@ -144,7 +151,11 @@ export default function TutorialShow() {
           />
         </Toolbar>
         {hasInstruction ? (
-          <Stepper activeStep={activeStep} orientation="vertical">
+          <Stepper
+            activeStep={activeStep}
+            orientation="vertical"
+            sx={{ mb: 2 }}
+          >
             {tutorial.instructions.map((step, index) => {
               const isLastStep = index === tutorial.instructions.length - 1;
               return (
@@ -182,21 +193,24 @@ export default function TutorialShow() {
           <Typography>Aucune instruction pour le moment.</Typography>
         )}
         {hasInstruction && activeStep === tutorial.instructions.length && (
-          <Paper square elevation={0} sx={{ p: 3 }}>
-            <Stack spacing={2}>
-              <Typography>Tu as terminé le tutoriel, bravo !</Typography>
-              <Stack direction="row" spacing={1}>
-                <Button
-                  variant={open ? "outlined" : "contained"}
-                  onClick={handleShare}
-                  disabled={open}
-                >
-                  Partager
-                </Button>
-                <Button onClick={handleReset}>Réinitialiser</Button>
+          <>
+            <Paper square elevation={0} sx={{ p: 3, mb: 8 }}>
+              <Stack spacing={2}>
+                <Typography>Tu as terminé le tutoriel, bravo !</Typography>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    variant={open ? "outlined" : "contained"}
+                    onClick={handleShare}
+                    disabled={open}
+                  >
+                    Partager
+                  </Button>
+                  <Button onClick={handleReset}>Réinitialiser</Button>
+                </Stack>
               </Stack>
-            </Stack>
-          </Paper>
+            </Paper>
+            <CreateTutorialInvitation />
+          </>
         )}
       </Box>
       <Popover
