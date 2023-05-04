@@ -14,6 +14,7 @@ import getTutorials from "./queries/getTutorials";
 import finishTutorial from "./mutations/finishTutorial";
 import resetTutorial from "./mutations/resetTutorial";
 import SignIn from "./routes/signin";
+import TutorialsCreate from "./routes/tutorials-create";
 
 const app = initialize();
 export const firestore = getFirestore(app);
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           const tutorials = await getTutorials();
           return json({ tutorials });
         },
+      },
+      {
+        path: "/tutorials/new",
+        element: <TutorialsCreate />,
       },
       {
         path: "/tutorials/:id",
